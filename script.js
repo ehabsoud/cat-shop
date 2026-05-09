@@ -3,6 +3,8 @@ const catContainer = document.getElementById("cat-container")
 const prevBtn = document.getElementById("prev-btn")
 const nextBtn = document.getElementById("next-btn")
 const pageInfo = document.getElementById("page-info")
+const loadingMessage = document.getElementById("loading-message")
+const pagination = document.getElementById("pagination")
 
 let currentPage = 1
 const catsPerPage = 10
@@ -21,6 +23,9 @@ async function fetchCats() {
 
     const totalPages = Math.ceil(cats.length / catsPerPage)
     pageInfo.textContent = `Sida ${currentPage} av ${totalPages}`   
+
+    loadingMessage.style.display = "none"
+    pagination.hidden = false
 
     paginatedCats.forEach(cat => {
         const imageUrl = `https://cdn2.thecatapi.com/images/${cat.reference_image_id}.jpg`

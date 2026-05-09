@@ -105,3 +105,15 @@ section {
 .cat-card h2 {
     margin-top: 1rem;
 }
+
+#loading-message {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--muted-text-color);
+    margin-top: 3rem;
+}
+
+#pagination[hidden] {
+    display: none;
+}
