@@ -1,13 +1,28 @@
 const apiUrl = "https://api.thecatapi.com/v1/breeds?limit=30"
 const catContainer = document.getElementById("cat-container")
+const prevBtn = document.getElementById("prev-btn")
+const nextBtn = document.getElementById("next-btn")
+const pageInfo = document.getElementById("page-info")
+
+let currentPage = 1
+const catsPerPage = 10
 
 async function fetchCats() {
     const response = await fetch(apiUrl)
     const cats = await response.json()
+
+    const startIndex = (currentPage - 1) * catsPerPage
+    const endIndex = startIndex + catsPerPage
+    const paginatedCats = cats.slice(startIndex, endIndex) 
      
     console.log(cats)
 
-    cats.forEach(cat => {
+    catContainer.innerHTML = ""
+
+    const totalPages = Math.ceil(cats.length / catsPerPage)
+    pageInfo.textContent = `Sida ${currentPage} av ${totalPages}`   
+
+    paginatedCats.forEach(cat => {
         const imageUrl = `https://cdn2.thecatapi.com/images/${cat.reference_image_id}.jpg`
 
         catContainer.innerHTML += `
@@ -21,3 +36,22 @@ async function fetchCats() {
 }
 
 fetchCats();
+
+nextBtn.addEventListener("click", async () => {
+    const response = await fetch(apiUrl)
+    const cats = await response.json()
+
+    const totalPages = Math.ceil(cats.length / catsPerPage)
+
+    if (currentPage < totalPages) {
+        currentPage++
+        fetchCats()
+    }
+})
+
+prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+        currentPage--
+        fetchCats()
+    }
+})
