@@ -46,6 +46,11 @@ nextBtn.addEventListener("click", async () => {
     if (currentPage < totalPages) {
         currentPage++
         fetchCats()
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
     }
 })
 
@@ -53,5 +58,10 @@ prevBtn.addEventListener("click", () => {
     if (currentPage > 1) {
         currentPage--
         fetchCats()
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
     }
 })
