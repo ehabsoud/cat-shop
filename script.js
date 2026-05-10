@@ -5,23 +5,40 @@ const nextBtn = document.getElementById("next-btn")
 const pageInfo = document.getElementById("page-info")
 const loadingMessage = document.getElementById("loading-message")
 const pagination = document.getElementById("pagination")
+const searchInput = document.getElementById("search-input")
 
 let currentPage = 1
+let allCats = []
+let filteredCats = []
 const catsPerPage = 10
 
 async function fetchCats() {
     const response = await fetch(apiUrl)
     const cats = await response.json()
 
+    allCats = cats
+    filteredCats = cats
+    renderCats()
+}
+
+function renderCats() {
+
     const startIndex = (currentPage - 1) * catsPerPage
     const endIndex = startIndex + catsPerPage
-    const paginatedCats = cats.slice(startIndex, endIndex) 
+    const paginatedCats = filteredCats.slice(startIndex, endIndex) 
      
-    console.log(cats)
+    console.log(filteredCats)
 
     catContainer.innerHTML = ""
 
-    const totalPages = Math.ceil(cats.length / catsPerPage)
+    if (filteredCats.length === 0) {
+        catContainer.innerHTML = "<p>Inga katter hittades.</p>"
+        pageInfo.textContent = ""
+        pagination.hidden = true
+        return
+    }
+
+    const totalPages = Math.ceil(filteredCats.length / catsPerPage)
     pageInfo.textContent = `Sida ${currentPage} av ${totalPages}`   
 
     loadingMessage.style.display = "none"
@@ -42,15 +59,12 @@ async function fetchCats() {
 
 fetchCats();
 
-nextBtn.addEventListener("click", async () => {
-    const response = await fetch(apiUrl)
-    const cats = await response.json()
-
-    const totalPages = Math.ceil(cats.length / catsPerPage)
+nextBtn.addEventListener("click", () => {
+    const totalPages = Math.ceil(filteredCats.length / catsPerPage)
 
     if (currentPage < totalPages) {
         currentPage++
-        fetchCats()
+        renderCats()
 
         window.scrollTo({
             top: 0,
@@ -62,11 +76,21 @@ nextBtn.addEventListener("click", async () => {
 prevBtn.addEventListener("click", () => {
     if (currentPage > 1) {
         currentPage--
-        fetchCats()
+        renderCats()
 
         window.scrollTo({
             top: 0,
             behavior: "smooth"
         })
     }
+})
+
+searchInput.addEventListener("input", () => {
+    const searchValue = searchInput.value.toLowerCase()
+
+    filteredCats = allCats.filter(cat =>
+        cat.name.toLowerCase().includes(searchValue)
+    )
+    currentPage = 1
+    renderCats()
 })

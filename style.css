@@ -35,13 +35,13 @@ body {
 
 #cat-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 1rem;
 }
 
 .cat-card img {
     width: 100%;
-    height: 200px;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 8px;
 }
@@ -116,4 +116,27 @@ section {
 
 #pagination[hidden] {
     display: none;
+}
+
+@media (max-width: 1200px) {
+    #cat-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+#search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: var(--surface-color);
+    color: var(--text-color);
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
 }
