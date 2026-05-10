@@ -10,6 +10,7 @@ const searchInput = document.getElementById("search-input")
 let currentPage = 1
 let allCats = []
 let filteredCats = []
+let cart = JSON.parse(localStorage.getItem("cart")) || []
 const catsPerPage = 10
 
 async function fetchCats() {
@@ -52,8 +53,32 @@ function renderCats() {
                 <img src="${imageUrl}" alt="${cat.name}">
                 <h2>${cat.name}</h2>
                 <p>${cat.origin}</p>
+                <button class="add-to-cart-btn" data-id="${cat.id}">
+                    Lägg till i kundvagn
+                </button>
             </div>
         `
+    })
+
+    const addToCartButtons = document.querySelectorAll(".add-to-cart-btn")
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const catId = button.dataset.id
+
+            const selectedCat = allCats.find(cat => cat.id === catId)
+
+            cart.push(selectedCat)
+
+            localStorage.setItem("cart", JSON.stringify(cart))
+
+            button.textContent = "Tillagd ✓"
+            setTimeout(() => {
+                button.textContent = "Lägg till i kundvagn"
+            }, 1200)
+
+            console.log(cart)
+        })
     })
 }
 
