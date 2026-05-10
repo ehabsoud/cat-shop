@@ -60,6 +60,8 @@ section {
 }
 
 .cat-card {
+    display: flex;
+    flex-direction: column;
     background-color: var(--surface-color);
     border: 1px solid var(--border-color);
     border-radius: 12px;
@@ -77,11 +79,6 @@ section {
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 8px;
-}
-
-.cat-card h2 {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
 }
 
 #search-input {
@@ -138,7 +135,7 @@ section {
 
 .add-to-cart-btn {
     width: 100%;
-    margin-top: 1rem;
+    margin-top: auto;
     padding: 0.55rem 0.75rem;
     border: 1px solid var(--accent-color);
     border-radius: 8px;
@@ -179,9 +176,18 @@ section {
     flex-direction: column;
 }
 
-.cart-card h2 {
-    margin-top: 0;
+.cat-card h2 {
+    margin-top: 1rem;
     margin-bottom: 0.25rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cat-info p {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-bottom: 1rem;
 }
 
 .remove-from-cart-btn {

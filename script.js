@@ -48,16 +48,20 @@ function renderCats() {
     paginatedCats.forEach(cat => {
         const imageUrl = `https://cdn2.thecatapi.com/images/${cat.reference_image_id}.jpg`
 
-        catContainer.innerHTML += `
-            <div class="cat-card">
-                <img src="${imageUrl}" alt="${cat.name}">
+    catContainer.innerHTML += `
+        <div class="cat-card">
+            <img src="${imageUrl}" alt="${cat.name}">
+
+            <div class="cat-info">
                 <h2>${cat.name}</h2>
                 <p>${cat.origin}</p>
-                <button class="add-to-cart-btn" data-id="${cat.id}">
-                    Lägg till i kundvagn
-                </button>
             </div>
-        `
+
+            <button class="add-to-cart-btn" data-id="${cat.id}">
+                Lägg till i kundvagn
+            </button>
+        </div>
+    `
     })
 
     const addToCartButtons = document.querySelectorAll(".add-to-cart-btn")
