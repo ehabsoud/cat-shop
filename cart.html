@@ -6,6 +6,7 @@
     <title>Kundvagn</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <nav>
@@ -16,13 +17,43 @@
     </nav>
 
     <main>
-        <section>
-            <h1>Kundvagn</h1>
-
+        <h1>Kundvagn</h1>
+        
+        <section class="cart-layout">
             <div id="cart-container"></div>
+
+            <form id="checkout-form">
+                <h2>Checkout</h2>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Namn"
+                    required
+                >
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="E-post"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="address"
+                    placeholder="Adress"
+                    required
+                >
+
+                <button type="submit">
+                    Slutför köp
+                </button>
+            </form>
         </section>
     </main>
 
     <script src="cart.js"></script>
+
 </body>
 </html>
